@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using September2022.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +12,24 @@ namespace September2022.Utilities
 {
     public class CommonDriver
     {
-        public static IWebDriver driver;
+        public IWebDriver driver;
+
+        LoginPage loginPageObj = new LoginPage();
+
+        [OneTimeSetUp]
+        public void LoginActions()
+        {
+            // open chrome browser
+            driver = new ChromeDriver();
+
+            // Login page object initialization and definition
+            loginPageObj.LoginSteps(driver);
+        }
+
+        [OneTimeTearDown]
+        public void CloseTestRun()
+        {
+            driver.Quit();
+        }
     }
 }

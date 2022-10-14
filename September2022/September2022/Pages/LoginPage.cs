@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using September2022.Utilities;
 
 namespace September2022.Pages
 {

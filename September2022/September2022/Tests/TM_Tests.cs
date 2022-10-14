@@ -1,6 +1,4 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using September2022.Pages;
 using September2022.Utilities;
 
@@ -10,52 +8,37 @@ namespace September2022.Tests
     [Parallelizable]
     public class TM_Tests : CommonDriver
     {
-        LoginPage loginPageObj = new LoginPage();
         HomePage homePageObj = new HomePage();
         TMPage tmPageObj = new TMPage();
-
-        [SetUp]
-        public void LoginActions()
-        {
-            // open chrome browser
-
-            driver = new ChromeDriver();
-
-            // Login page object initialization and definition
-            
-            loginPageObj.LoginSteps(driver);
-
-            // Home page object initialization and definition
-            
-            homePageObj.GoToTMPage(driver);
-        }
 
         [Test, Order(1), Description ("This test creates a new TM record")]
         public void CreateTMTest()
         {
-            
+            // Home page object initialization and definition
+            homePageObj.GoToTMPage(driver);
+
+            // TM page object initialization and definition
             tmPageObj.CreateTM(driver);
         }
 
         [Test, Order(2), Description ("This test edits the latest TM record created")]
         public void EditTMTest()
         {
-            
+            // Home page object initialization and definition
+            homePageObj.GoToTMPage(driver);
+
+            // Edit TM
             tmPageObj.EditTM(driver);
         }
 
         [Test, Order(3), Description ("This test deletes the TM record edited on the test above")]
         public void DeleteTMTest()
         {
-            
+            // Home page object initialization and definition
+            homePageObj.GoToTMPage(driver);
+
+            // Delete TM
             tmPageObj.DeleteTM(driver);
         }
-
-        [TearDown]
-        public void CloseTestRun()
-        {
-            driver.Quit();
-        }
-
     }
 }
