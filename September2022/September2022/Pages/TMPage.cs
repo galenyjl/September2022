@@ -55,19 +55,27 @@ namespace September2022.Pages
             // Check if new Time record has been created successfully
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
-
-            IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            IWebElement newDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
-            IWebElement newPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
-
-
-            Assert.That(newCode.Text == "September2022", "New code and expected code do not match.");
-            Assert.That(newDescription.Text == "September2022", "New description and expected description do not match.");
-            Assert.That(newPrice.Text == "$12.00", "New price and expected price do not match.");
-
         }
 
-        public void EditTM(IWebDriver driver)
+        public string GetCode (IWebDriver driver)
+        {
+            IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            return newCode.Text;
+        }
+
+        public string GetDescription (IWebDriver driver)
+        {
+            IWebElement newDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return newDescription.Text;
+        }
+
+        public string GetPrice(IWebDriver driver)
+        {
+            IWebElement newPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
+            return newPrice.Text;
+        }
+
+        public void EditTM(IWebDriver driver, string description)
         {
             Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[1]/td[1]", 3);
 
@@ -106,7 +114,7 @@ namespace September2022.Pages
 
             IWebElement DescTextbox2 = driver.FindElement(By.Id("Description"));
             DescTextbox2.Clear();
-            DescTextbox2.SendKeys("Edited Updated description 1010");
+            DescTextbox2.SendKeys(description);
 
             //Edit the Price 
 
@@ -144,7 +152,12 @@ namespace September2022.Pages
             {
                 Console.WriteLine("OOPs can't edit the record");
             }
+        }
 
+        public string GetEditedDescription(IWebDriver driver)
+        {
+            IWebElement EditedDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return EditedDescription.Text;
         }
 
         public void DeleteTM(IWebDriver driver)

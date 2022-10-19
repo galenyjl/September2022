@@ -28,7 +28,7 @@ namespace September2022.Tests
             homePageObj.GoToTMPage(driver);
 
             // Edit TM
-            tmPageObj.EditTM(driver);
+            //tmPageObj.EditTM(driver);
         }
 
         [Test, Order(3), Description ("This test deletes the TM record edited on the test above")]
